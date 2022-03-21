@@ -23,16 +23,45 @@ The main source of data will be the [Pokemon TCG API](https://docs.pokemontcg.io
 
 ## **Database Schema:**
 
-Database will collect information on:
-- user (id, email, username, password)
-- favorited cards
-- playlists/decks
+<img src="images/schema.png" alt="drawing" width="500"/>
+<!-- ![Pokemon TCG Schema](images/schema.png) -->
+
+```py
+class User(db.Model):
+    """Users in the system."""
+
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Text, nullable=False, unique=True)
+    password = db.Column(db.Text, nullable=False)
+    email = db.Column(db.Text, nullable=False, unique=True)
+    profile_image = db.Column(db.Text, default= DEEFAULT_PROFILE_IMAGE)
+
+
+class Card(db.Model):
+    """Individual Pokemon Trading Card"""
+
+    __tablename__ = 'cards'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False)
+
+
+class Favorites(db.Model):
+    """Mapping user favorites to cards."""
+
+    __tablename__ = 'favorites' 
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'))
+    card_id = db.Column(db.Integer, db.ForeignKey('card.id', ondelete='cascade'))
+```
 	
 
 ## **Potential API Issues:** 
 
 - The Pokemon TCG API is very well documented so may not run into many issues with requests
-- A challenge that may arise is the development of the models for favoriting cards and making playlists
+- A challenge that may arise is the development of the models for favoriting cards and making personalized decks
 
 
 ## **Sensitive Information:**
@@ -51,5 +80,5 @@ Database will collect information on:
 
 
 ## **Beyond CRUD**
-Aside from being a search tool, users can create an account, favorite/unfavorite cards, and create/delete decks (playlists) that they create. Users can sort and browse by release date, type.
+Aside from being a search tool, users can create an account, favorite/unfavorite cards, and create/delete decks (similar to creating playlists) that they create.
 
