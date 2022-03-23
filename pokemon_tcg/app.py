@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User, Card, Favorite
-from forms import AddUserForm, LoginForm
+from forms import AddUserForm, LoginForm, EditUserForm
 import os
 import re
 
@@ -26,13 +26,16 @@ connect_db(app)
 CURR_USER_KEY = "current_user"
 
 
-##############################################################################
+############################################################################################
 # ERROR HANDLERS
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-##############################################################################
 
+############################################################################################
+# USER SESSION 
+ 
 @app.before_request   # This function is run before each request. 
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global."""
@@ -58,7 +61,8 @@ def do_logout():
 
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-
+############################################################################################
+# HOMEPAGE ROUTES
 
 @app.route('/')
 def homepage():
@@ -80,6 +84,9 @@ def welcome():
 
     else:
         return render_template('home-anon.html')
+
+############################################################################################
+# SIGNUP/LOGIN/LOGOUT ROUTES
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -156,3 +163,91 @@ def logout():
 
     flash(f"You have successfully logged out.", "success")
     return redirect("/login")
+
+############################################################################################
+# USER ROUTES 
+
+@app.route('/users/<int:user_id>')
+def show_user_profile(user_id):
+    """Show user profile."""
+
+    user = User.query.get_or_404(user_id)
+
+    # retrieve the user's favorite cards to display on their profile;
+    favorites = (Favorite
+                .query
+                .filter(Favorite.user_id == user_id )
+                .limit(100)
+                .all())
+
+    # shows the likes of the current user
+    
+    return render_template('user/user.html', user=user, favorites=favorites)
+
+
+@app.route('/users/profile', methods=["GET", "POST"])
+def edit_profile():
+    """Update profile details for current user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+
+    user = g.user
+    form = EditUserForm(obj=user)
+
+    if form.validate_on_submit():
+        if User.authenticate(user.username, form.password.data):
+
+            user.username = form.username.data
+            user.email = form.email.data
+            user.profile_image = form.profile_image.data or User.profile_image.default.arg
+
+            db.session.commit()
+
+            flash("Profile successfully updated.", "success")
+
+            return redirect(f"/users/{user.id}")
+        
+        flash("Wrong password, please try again.", 'danger')
+
+    return render_template('user/edit_user.html', form=form, user_id=user.id)
+
+
+@app.route('/users/delete', methods=["POST"])
+def delete_user():
+    """Delete user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    do_logout()
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+
+    flash('User has been deleted.' , "success")
+    return redirect("/signup")
+    
+
+
+############################################################################################
+# CARD ROUTES 
+
+############################################################################################
+# FAVORITE ROUTES 
+
+
+
+
+
+# https://stackoverflow.com/questions/24956894/sql-alchemy-queuepool-limit-overflow
+# sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+
+# https://stackoverflow.com/questions/57844921/good-practice-to-avoid-sqlalchemy-exc-timeouterror-queuepool-limit-of-size-5-ov
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.session.remove()

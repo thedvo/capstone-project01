@@ -11,6 +11,8 @@ body {
 	margin-right: 1em;
 }
 
-footer {
-	vertical-align: bottom;
+#profile-avatar {
+	height: 175px;
+	width: 175px;
+	border-radius: 10px;
 }

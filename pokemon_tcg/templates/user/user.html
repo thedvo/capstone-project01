@@ -1,6 +1,46 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
 
 
-{% block content %}{% endblock %}
+<img src="{{ user.profile_image }}" alt="Image for {{ user.username }}" id="profile-avatar" class="img-thumbnail">
+<div class="row">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-9">
+                <ul class="user-stats nav nav-pills">
+                    <li class="stat">
+                        <p class="small">Favorites</p>
+                        <h4><a href="/user/{{user.id}}/favorites">{{ user.favorites | length}}</a></h4>
+                    </li>
+                    
+                    
+                    
+                    
+                    <div>
+                        {% if g.user.id == user.id %}
+                        <form action="/users/profile">
+                            <button class="btn btn-secondary">Edit Profile</button>
+                        </form>
+                     
+    
+                        <form method="POST" action="/users/delete">
+                            <button class="btn btn-danger ml-2">Delete Profile</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <h4 id="sidebar-username">{{ user.username }}</h4>
+    </div>
+</div>
+
+{% endblock %}
