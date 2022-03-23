@@ -56,18 +56,18 @@
     </nav>
 
 
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3" id="page-container">
         {% for category, message in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
     
     {% block content %}
     {% endblock %}
-    </div>
+        </div>
 </body>
 
-<footer>
-    <div class="fixed-bottom text-center">
+<footer id="footer">
+    <div class="text-center">
         <p>Pokemon TCG Search <span>by </span><span><a href="https://www.linkedin.com/in/danqvo/">Dan Vo</a></span></p>
         <p>Application data sourced from the <a href="https://docs.pokemontcg.io/">Pokemon TCG API</a></p>
         <p>This is not produced, endorsed, supported, or affiliated with Nintendo or The Pokemon Company.</p>

@@ -1,6 +1,8 @@
 body {
 	background-color: rgb(24, 30, 39);
 	color: rgb(208, 220, 230);
+	height: 100vh;
+	margin: 0;
 }
 
 #navbar-profile-img {
@@ -25,4 +27,13 @@ body {
 #edit-fields {
 	margin-bottom: -6px;
 	margin-top: 15px;
+}
+
+#page-container {
+	position: relative;
+	min-height: 70vh;
+}
+
+#footer {
+	margin-top: auto;
 }
