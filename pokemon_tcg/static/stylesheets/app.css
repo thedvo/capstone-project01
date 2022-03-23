@@ -1,0 +1,16 @@
+body {
+	background-color: rgb(24, 30, 39);
+	color: rgb(208, 220, 230);
+}
+
+#navbar-profile-img {
+	height: 27px;
+	width: 27px;
+	border-radius: 25em;
+	margin-left: 0.25em;
+	margin-right: 1em;
+}
+
+footer {
+	vertical-align: bottom;
+}
