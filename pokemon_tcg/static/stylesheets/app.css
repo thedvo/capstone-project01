@@ -16,3 +16,8 @@ body {
 	width: 175px;
 	border-radius: 10px;
 }
+
+#number-favorites {
+	font-size: 20px;
+	margin-top: -20px;
+}

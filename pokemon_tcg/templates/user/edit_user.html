@@ -18,9 +18,7 @@
             <p>To confirm changes, enter your password:</p>
             {% if form.password.errors %}
             {% for error in form.password.errors %}
-            <span class="text-danger">
-                {{ error }}
-            </span>
+            <span class="text-danger">{{ error }}</span>
             {% endfor %}
             {% endif %}
             {{ form.password(placeholder="Enter your password to confirm", class="form-control") }}

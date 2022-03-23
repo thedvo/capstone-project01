@@ -3,44 +3,45 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-
-
-<img src="{{ user.profile_image }}" alt="Image for {{ user.username }}" id="profile-avatar" class="img-thumbnail">
-<div class="row">
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-9">
-                <ul class="user-stats nav nav-pills">
-                    <li class="stat">
-                        <p class="small">Favorites</p>
-                        <h4><a href="/user/{{user.id}}/favorites">{{ user.favorites | length}}</a></h4>
-                    </li>
-                    
-                    
-                    
-                    
-                    <div>
-                        {% if g.user.id == user.id %}
-                        <form action="/users/profile">
-                            <button class="btn btn-secondary">Edit Profile</button>
-                        </form>
-                     
-    
-                        <form method="POST" action="/users/delete">
-                            <button class="btn btn-danger ml-2">Delete Profile</button>
-                        </form>
-                        {% endif %}
-                    </div>
-                </ul>
-            </div>
+<div class="row ms-5">
+    <div class="row mt-5">
+        <div class="col">
+            <img src="{{ user.profile_image }}" alt="Image for {{ user.username }}" id="profile-avatar" class="img-thumbnail mb-2">
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-sm-3">
-        <h4 id="sidebar-username">{{ user.username }}</h4>
+    <div class="row">
+        <div class="col">
+            <h4 class="fw-bold" id="sidebar-username">{{ user.username }}</h4>
+        </div>
     </div>
-</div>
 
+    <div class="row mt-3">
+        <div class="col">
+            <p>Favorites</p>
+            <p id="number-favorites"><a href="/user/{{user.id}}/favorites">{{ user.favorites | length}}</a></p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        {% if g.user.id == user.id %}
+        <div class="col mb-1">
+                <a href="/users/profile" class="btn btn-secondary btn-sm">Edit Profile</a>
+        </div>
+    </div>
+
+    <div class="row">
+            <form method="POST" action="/users/delete">
+                <button class="btn btn-danger btn-sm ms-1">Delete User</button>
+            </form> 
+        {% endif %}    
+    </div>
+
+
+    <div class="col">
+        <!-- AREA FOR USER'S FAVORITE CARDS -->
+    </div>
+
+
+</div>
 {% endblock %}

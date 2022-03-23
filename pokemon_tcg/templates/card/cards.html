@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row text-center mt-4">
+        {% for card in cards['data'] %}
+        <div class="col-2">
+            <img class="me-1 mb-3" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

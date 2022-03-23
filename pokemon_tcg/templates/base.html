@@ -25,11 +25,11 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        {% if request.endpoint != None %}
-                        <form class="navbar-form align-items-end" action="/cards">
+                        {% if isIndex != True %}
+                        <form class="navbar-form align-items-end" action="/cards/">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" aria-label="Card Search"
-                                aria-describedby="button-addon2">
+                                aria-describedby="button-addon2" name="pokemon-search" autocomplete="off">
                             <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
                         </div>
                         </form>
@@ -56,7 +56,7 @@
     </nav>
 
 
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
         {% for category, message in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
@@ -69,7 +69,7 @@
 <footer>
     <div class="fixed-bottom text-center">
         <p>Pokemon TCG Search <span>by </span><span><a href="https://www.linkedin.com/in/danqvo/">Dan Vo</a></span></p>
-        <p>All data made available by the <a href="https://docs.pokemontcg.io/">Pokemon TCG API</a></p>
+        <p>Application data sourced from the <a href="https://docs.pokemontcg.io/">Pokemon TCG API</a></p>
         <p>This is not produced, endorsed, supported, or affiliated with Nintendo or The Pokemon Company.</p>
     </div>
 </footer>

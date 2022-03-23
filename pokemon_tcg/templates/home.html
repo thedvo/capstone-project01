@@ -10,12 +10,29 @@
         <p class="fs-5">The Ultimate Pokemon Trading Card Database</p>
     </div>
 
-    <form action="/cards">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for a card" aria-label="Card Search"
-                aria-describedby="button-addon2">
-            <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
-        </div>
-    </form>
+    <div class="container">
+        <form action="/cards/">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for a card" aria-label="Card Search" name="pokemon-search"
+                    aria-describedby="button-addon2" autocomplete="off">
+                <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
+            </div>
+        </form>
+    </div>
 </div>
+
+
+    
+<div class="container mt-5 text-center">
+    <!-- <img src="{{cards[0]['card1']}}" alt=""> -->
+    <img class="me-1" src="{{cards[1]['card2']}}" alt="">
+    <img class="me-1" src="{{cards[2]['card3']}}" alt="">
+    <img class="me-1" src="{{cards[3]['card4']}}" alt="">
+    <img class="me-1" src="{{cards[4]['card5']}}" alt="">
+</div>
+
+
+
+
+
 {% endblock %}

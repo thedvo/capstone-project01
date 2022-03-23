@@ -3,6 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User, Card, Favorite
 from forms import AddUserForm, LoginForm, EditUserForm
+import requests
 import os
 import re
 
@@ -23,7 +24,36 @@ toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
+API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
+API_key = 'f464985b-e634-431f-9c0f-c3a7f911a651'
 CURR_USER_KEY = "current_user"
+
+############################################################################################
+# API ROUTES 
+
+def request_cards(pokemon):
+    """Return the dictionary containing the Pokemon card info"""
+
+    url = f'{API_BASE_URL}/?q=name:{pokemon}'
+    response = requests.get(url)
+    data = response.json()
+
+    data = data['data']
+    # name = data['data'][i]['name']
+    # image = data['data'][i]['images']['large']
+
+    return {"data": data}
+    # return {"id": card_id}, {"name": name}, {"image": image}
+
+
+@app.route('/cards/')
+def get_pokemon_cards():
+    """Handle form submission; return form; show cards related to search query"""
+
+    pokemon = request.args.get('pokemon-search')
+    card = request_cards(pokemon)
+
+    return render_template('card/cards.html', cards = card)
 
 
 ############################################################################################
@@ -31,7 +61,7 @@ CURR_USER_KEY = "current_user"
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('error_handlers/404.html'), 404
 
 ############################################################################################
 # USER SESSION 
@@ -71,7 +101,20 @@ def homepage():
     - anonymous users: show sign up landing page
     - logged in: show main search page
     """
-    return render_template('home.html')
+
+    url = f'{API_BASE_URL}/?q=name:m'
+    response = requests.get(url)
+    data = response.json()
+
+    one = data['data'][0]['images']['small']
+    two = data['data'][1]['images']['small']
+    three = data['data'][4]['images']['small']
+    four = data['data'][5]['images']['small']
+    five = data['data'][9]['images']['small']
+
+    cards = {"card1": one}, {"card2": two}, {"card3": three}, {"card4": four}, {"card5": five}
+
+    return render_template('home.html', cards=cards, isIndex=True)
     
 
 @app.route('/welcome')
@@ -180,7 +223,6 @@ def show_user_profile(user_id):
                 .limit(100)
                 .all())
 
-    # shows the likes of the current user
     
     return render_template('user/user.html', user=user, favorites=favorites)
 
