@@ -21,3 +21,8 @@ body {
 	font-size: 20px;
 	margin-top: -20px;
 }
+
+#edit-fields {
+	margin-bottom: -6px;
+	margin-top: 15px;
+}
