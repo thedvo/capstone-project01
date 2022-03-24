@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{card['data']['name']}}{% endblock %}
 
 
-{% block content %}{% endblock %}
+{% block content %}
+
+<p>{{card}}</p>
+
+<h2>{{card['data']['name']}}</h2>
+<img src="{{card['data']['images']['small']}}" alt="">
+    
+    
+{% endblock %}

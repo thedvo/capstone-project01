@@ -25,11 +25,10 @@ toolbar = DebugToolbarExtension(app)
 connect_db(app)
 
 API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
-API_key = 'f464985b-e634-431f-9c0f-c3a7f911a651'
 CURR_USER_KEY = "current_user"
 
 ############################################################################################
-# API ROUTES 
+# POKEMON TCG API ROUTES - CARDS
 
 def request_cards(pokemon):
     """Return the dictionary containing the Pokemon card info"""
@@ -56,12 +55,20 @@ def get_pokemon_cards():
     return render_template('card/cards.html', cards = card)
 
 
-############################################################################################
-# ERROR HANDLERS
+@app.route('/cards/<id>')
+def get_card_details(id):
+    """Display details for an individual card"""
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('error_handlers/404.html'), 404
+    url= f'{API_BASE_URL}/{id}'
+    response = requests.get(url)
+    data = response.json()
+
+    data = data['data']
+
+    card = {"data": data}
+
+    return render_template('card/card_detail.html', card = card)
+
 
 ############################################################################################
 # USER SESSION 
@@ -106,28 +113,16 @@ def homepage():
     response = requests.get(url)
     data = response.json()
 
-    one = data['data'][0]['images']['small']
-    two = data['data'][1]['images']['small']
-    three = data['data'][4]['images']['small']
-    four = data['data'][5]['images']['small']
-    five = data['data'][9]['images']['small']
+    one = data['data'][0]
+    two = data['data'][1]
+    three = data['data'][4]
+    four = data['data'][5]
+    five = data['data'][9]
 
     cards = {"card1": one}, {"card2": two}, {"card3": three}, {"card4": four}, {"card5": five}
 
     return render_template('home.html', cards=cards, isIndex=True)
     
-
-@app.route('/welcome')
-def welcome():
-    """Landing page for new users"""
-
-    if g.user:
-        flash("Welcome back!", "success")
-        return redirect('/')
-
-    else:
-        return render_template('home-anon.html')
-
 ############################################################################################
 # SIGNUP/LOGIN/LOGOUT ROUTES
 
@@ -210,21 +205,21 @@ def logout():
 ############################################################################################
 # USER ROUTES 
 
-@app.route('/users/<int:user_id>')
-def show_user_profile(user_id):
+@app.route('/users')
+def show_user_profile():
     """Show user profile."""
 
-    user = User.query.get_or_404(user_id)
+    user_id = g.user.id
 
     # retrieve the user's favorite cards to display on their profile;
     favorites = (Favorite
                 .query
-                .filter(Favorite.user_id == user_id )
+                .filter(Favorite.user_id == g.user.id)
                 .limit(100)
                 .all())
 
     
-    return render_template('user/user.html', user=user, favorites=favorites)
+    return render_template('user/user.html', favorites=favorites)
 
 
 @app.route('/users/profile', methods=["GET", "POST"])
@@ -275,14 +270,21 @@ def delete_user():
     
 
 
-############################################################################################
-# CARD ROUTES 
 
 ############################################################################################
 # FAVORITE ROUTES 
 
 
 
+
+
+
+############################################################################################
+# ERROR HANDLERS
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error_handlers/404.html'), 404
 
 
 # https://stackoverflow.com/questions/24956894/sql-alchemy-queuepool-limit-overflow

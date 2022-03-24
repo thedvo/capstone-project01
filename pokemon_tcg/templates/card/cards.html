@@ -5,8 +5,10 @@
 <div class="container-fluid">
     <div class="row text-center mt-4">
         {% for card in cards['data'] %}
-        <div class="col-2">
-            <img class="me-1 mb-3" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
+        <div class="col-2 me-3 ms-4">
+            <a href="/cards/{{card['id']}}">
+            <img class="mb-4 pokemon-card-search-image" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
+            </a>
         </div>
         {% endfor %}
     </div>

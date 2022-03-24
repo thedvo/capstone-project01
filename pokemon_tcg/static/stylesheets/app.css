@@ -5,6 +5,16 @@ body {
 	margin: 0;
 }
 
+#page-container {
+	position: relative;
+	min-height: 70vh;
+}
+
+#footer {
+	margin-top: auto;
+	height: 150px;
+}
+
 #navbar-profile-img {
 	height: 27px;
 	width: 27px;
@@ -29,11 +39,31 @@ body {
 	margin-top: 15px;
 }
 
-#page-container {
-	position: relative;
-	min-height: 70vh;
+#profile-edit-btn {
+	width: 100px;
 }
 
-#footer {
-	margin-top: auto;
+#profile-delete-btn {
+	width: 100px;
+}
+
+.homepage-card {
+	transition: margin 0.2s ease-in-out;
+	width: 200px;
+	height: 275px;
+}
+
+.homepage-card:hover {
+	margin-top: -35px;
+}
+
+.pokemon-card-search-image {
+	transition: all 0.2s ease-in-out;
+	border-radius: 8px;
+	width: 235px;
+	height: 310px;
+}
+
+.pokemon-card-search-image:hover {
+	transform: scale(1.1);
 }

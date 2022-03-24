@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="mt-5">
+<div class="mt-4">
     <div class="col text-center">
         <h1 class="fw-bold">Pokemon TCG Search</h1>
         <p class="fs-5">The Ultimate Pokemon Trading Card Database</p>
@@ -12,8 +12,8 @@
 
     <div class="container">
         <form action="/cards/">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for a card" aria-label="Card Search" name="pokemon-search"
+            <div class="input-group mt-4">
+                <input type="text" class="form-control" placeholder="Search a Pokemon  (ex. 'lugia' or 'jirachi')" aria-label="Card Search" name="pokemon-search"
                     aria-describedby="button-addon2" autocomplete="off">
                 <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
             </div>
@@ -24,15 +24,22 @@
 
     
 <div class="container mt-5 text-center">
-    <!-- <img src="{{cards[0]['card1']}}" alt=""> -->
-    <img class="me-1" src="{{cards[1]['card2']}}" alt="">
-    <img class="me-1" src="{{cards[2]['card3']}}" alt="">
-    <img class="me-1" src="{{cards[3]['card4']}}" alt="">
-    <img class="me-1" src="{{cards[4]['card5']}}" alt="">
+    <!-- <img src="{{cards[0]['card1']['images']['small']}}" alt=""> -->
+    <a href="/cards/{{cards[1]['card2']['id']}}">
+        <img class="me-1 homepage-card" src="{{cards[1]['card2']['images']['small']}}" alt="">
+    </a>
+
+    <a href="/cards/{{cards[2]['card3']['id']}}">
+        <img class="me-1 homepage-card" src="{{cards[2]['card3']['images']['small']}}" alt="">
+    </a>
+
+    <a href="/cards/{{cards[3]['card4']['id']}}">
+        <img class="me-1 homepage-card" src="{{cards[3]['card4']['images']['small']}}" alt="">
+    </a>
+
+    <a href="/cards/{{cards[4]['card5']['id']}}">
+        <img class="me-1 homepage-card" src="{{cards[4]['card5']['images']['small']}}" alt="">
+    </a>
 </div>
-
-
-
-
 
 {% endblock %}
