@@ -38,11 +38,8 @@ def request_cards(pokemon):
     data = response.json()
 
     data = data['data']
-    # name = data['data'][i]['name']
-    # image = data['data'][i]['images']['large']
-
+  
     return {"data": data}
-    # return {"id": card_id}, {"name": name}, {"image": image}
 
 
 @app.route('/cards/')
@@ -64,7 +61,7 @@ def get_card_details(id):
     data = response.json()
 
     data = data['data']
-
+   
     card = {"data": data}
 
     return render_template('card/card_detail.html', card = card)

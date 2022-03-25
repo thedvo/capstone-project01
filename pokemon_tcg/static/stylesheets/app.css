@@ -85,3 +85,19 @@ body {
 #tcgplayer {
 	font-size: 10px;
 }
+
+#market-price {
+	color: rgb(136, 0, 247);
+}
+
+#low-price {
+	color: rgb(49, 218, 49);
+}
+
+#mid-price {
+	color: rgb(0, 157, 255);
+}
+
+#high-price {
+	color: rgb(255, 58, 58);
+}

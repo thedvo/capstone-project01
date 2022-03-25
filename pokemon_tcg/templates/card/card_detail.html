@@ -24,7 +24,7 @@
                 <!-- Health Points 'HP' -->
                 {% if card['data']['hp'] %}
                 <div class="col-6 mt-3">
-                    <p>HP {{card['data']['hp']}}</p>
+                    <p class="fw-bold">HP {{card['data']['hp']}}</p>
                 </div>
                 {% endif %}
             </div>
@@ -33,48 +33,64 @@
 
             <!-- Card Pricing -->
             <div class="row">
-                <h5>Prices   <span id="tcgplayer">  via <a href="{{card['data']['cardmarket']['url']}}">Card Market</a></span></h5>
-                <small class="mb-2">Updated {{card['data']['cardmarket']['updatedAt']}}</small>
+                {% if card['data']['tcgplayer'] %}
+                <h5>Prices   <span id="tcgplayer">  via <a href="{{card['data']['tcgplayer']['url']}}">TCG Player</a></span></h5>
+                {% if card['data']['tcgplayer']['prices']['holofoil'] %}
+
+                <small class="mb-2">Updated {{card['data']['tcgplayer']['updatedAt']}}</small>
 
                 <div class="col-2 mt-2">
-                    <p>Trend Price</p>
-                    <p>${{card['data']['cardmarket']['prices']['trendPrice']}}</p>
+                    <small class="fw-bold">Market Price</small>
+                    <p id="market-price">${{card['data']['tcgplayer']['prices']['holofoil']['market']}}</p>
                 </div>
                 <div class="col-2 mt-2">
-                    <p>1 Day Average</p>
-                    <p>${{card['data']['cardmarket']['prices']['avg1']}}</p>
+                    <small class="fw-bold">Low</small>
+                    <p id="low-price">${{card['data']['tcgplayer']['prices']['holofoil']['low']}}</p>
                 </div>
 
                 <div class="col-2 mt-2">
-                    <p>7 Day Average</p>
-                    <p>${{card['data']['cardmarket']['prices']['avg7']}}</p>
+                    <small class="fw-bold">Mid</small>
+                    <p id="mid-price">${{card['data']['tcgplayer']['prices']['holofoil']['mid']}}</p>
                 </div>
 
                 <div class="col-2 mt-2">
-                    <p>30 Day Average</p>
-                    <p>${{card['data']['cardmarket']['prices']['avg30']}}</p>
+                    <small class="fw-bold">High</small>
+                    <p id="high-price">${{card['data']['tcgplayer']['prices']['holofoil']['high']}}</p>
                 </div>
+                {% else %}
+                <p>N/A</p>
+                {% endif %}
+                {% endif %}
             </div>
             
 
             <hr>
-
+            
             <div class="row">
+                <div class="row">
+                    <div class="col-7">
+                    {% if card['data']['abilities'] %}
+                    <small class="fw-bold">Ability</small>
+                    <h6 class="fw-bold mt-3"> {{card['data']['abilities'][0]['name']}}</h6>
+                    <p> {{card['data']['abilities'][0]['text']}}</p>
+                    {% endif %}
+                    </div>
+                </div>
                 <!-- Card Attacks -->
                 {% if card['data']['attacks']%}
-                <p>Attacks</p>
+                <small class="fw-bold mt-3">Attacks</small>
                     {% if card['data']['attacks'][0] %}
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col">
-                            <h5 class="fw-bold">{{card['data']['attacks'][0]['name']}}</h5>
+                            <h6 class="fw-bold">{{card['data']['attacks'][0]['name']}}</h6>
                         </div>
-                        <div class="col-5">
-                            <h5>{{card['data']['attacks'][0]['damage']}}</h5>
+                        <div class="col-6">
+                            <h5 class="fw-bold">{{card['data']['attacks'][0]['damage']}}</h5>
                         </div>
                         
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-7">
                             <p>{{card['data']['attacks'][0]['text']}}</p>
                         </div>
                     </div>
@@ -83,78 +99,95 @@
                     {% if card['data']['attacks'][1] %}
                     <div class="row mt-3">
                         <div class="col">
-                            <h5 class="fw-bold">{{card['data']['attacks'][1]['name']}}</h5>
+                            <h6 class="fw-bold">{{card['data']['attacks'][1]['name']}}</h6>
                         </div>
-                        <div class="col-5">
-                            <h5>{{card['data']['attacks'][1]['damage']}}</h5>
+                        <div class="col-6">
+                            <h5 class="fw-bold">{{card['data']['attacks'][1]['damage']}}</h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-7">
                             <p>{{card['data']['attacks'][1]['text']}}</p>
                         </div>
                     </div>
                     {% endif %}
-                {% elif card['data']['rules']%}
-                <p>Rules</p>
-                <p>{{card['data']['rules'][0]}}</p>
-                {% endif %}
 
-                {% if card['data']['weaknesses'] %}
-                <div class="row mt-3">
-                    <div class="col-4">
-                        <p>Weaknesses</p>
-                        <p>{{card['data']['weaknesses'][0]['type']}} {{card['data']['weaknesses'][0]['value']}}</p>
+                    {% elif card['data']['rules']%}
+                    <div class="row">
+                        <small class="fw-bold">Rules</small>
+                        <p>{{card['data']['rules'][0]}}</p>
                     </div>
+                    {% endif %}
+                
 
-                    <div class="col-4">
-                        <p>Retreat Cost</p>
-                        <p>{{card['data']['retreatCost'][0]}}</p>
+                    {% if card['data']['rules']%}
+                    <div class = "row mt-3">
+                        <div class="col-7">
+                            <small class="fw-bold">Rules</small>
+                            <p>{{card['data']['rules'][0]}}</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {% endif %}
+                    {% endif %}
+
+                    
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            {% if card['data']['weaknesses'] %}
+                            <small class="fw-bold">Weaknesses</small>
+                            <p>{{card['data']['weaknesses'][0]['type']}} {{card['data']['weaknesses'][0]['value']}}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-4">
+                            {% if card['data']['retreatCost'] %}
+                            <small class="fw-bold">Retreat Cost</small>
+                            <p>{{card['data']['retreatCost'][0]}}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+           
+            
 
             <hr>
 
             <!-- Other card details -->
             <div class="row">
                 <div class="col-3">
-                    <p>Artist</p>
+                    <small class="fw-bold">Artist</small>
                     <p> {{card['data']['artist']}} </p>
                 </div>
                 
                 {% if card['data']['nationalPokedexNumbers'] %}
                 <div class="col-3">
-                    <p>Pokedex Number</p>
+                    <small class="fw-bold">Pokedex Number</small>
                     <p>{{card['data']['nationalPokedexNumbers'][0]}} </p>
                 </div>
                 {% endif %}
 
                 <div class="col-3">
-                    <p>Rarity</p>
+                    <small class="fw-bold">Rarity</small>
                     <p>{{card['data']['rarity']}} </p>
                 </div>
             </div>
             <hr>
-            <div class="row mt-3 mb-5">
+            <div class="row mt-3 mb-3">
                 <div class="col-3">
-                    <p>Set</p>
+                    <small class="fw-bold">Set</small>
                     <p>{{card['data']['set']['name']}}</p>
                 </div>
 
                 <div class="col-3">
-                    <p>Number</p>
+                    <small class="fw-bold">Number</small>
                     <p>{{card['data']['number']}} / {{card['data']['set']['total']}}</p>
                 </div>
 
                 <div class="col-3">
-                    <p>Release Date</p>
+                    <small class="fw-bold">Release Date</small>
                     <p>{{card['data']['set']['releaseDate']}}</p>
                 </div>
-                <hr>
+            
             </div>
-           
+            <hr class="mb-5"> 
         </div>
     </div>
 </div>
