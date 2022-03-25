@@ -2,73 +2,46 @@
 
 {% block title %}{{card['data']['name']}}{% endblock %}
 
-
 {% block content %}
 <div class="container-fluid">
     <div class="row">
 
-        <!-- Card Image -->
         <div class="col-4 text-center mt-4">
             <img src="{{card['data']['images']['large']}}" id="card-detail-img" alt="">
         </div>
 
-        <!-- Card Details -->
         <div class="col mt-3">
-            <!-- Card Name + Type -->
             <div class="row">
-                
                 <div class="col">
                     <h2>{{card['data']['name']}}</h2>
+                    {% if card['data']['subtypes'] %}
                     <p>{{card['data']['supertype']}} - {{card['data']['subtypes'][0]}}</p>
+                    {% endif %}
                 </div>
                 <!-- Health Points 'HP' -->
                 {% if card['data']['hp'] %}
                 <div class="col-6 mt-3">
                     <p class="fw-bold">HP {{card['data']['hp']}}
+                        {% if card['data']['types'] %}
+                        {% for type in card['data']['types'] %}
                         <span>
-                            {% if card['data']['types'] %}
                             <img id="hp-symbol" src="
-                            {% if card['data']['types'][0] == 'Darkness' %}
-                            /static/images/Energy/darkness.png
-
-                            {% elif card['data']['types'][0] == 'Colorless' %}
-                            /static/images/Energy/colorless.png
-
-                            {% elif card['data']['types'][0] == 'Darkness' %}
-                            /static/images/Energy/darkness.png
-
-                            {% elif card['data']['types'][0] == 'Dragon' %}
-                            /static/images/Energy/dragon.png
-
-                            {% elif card['data']['types'][0] == 'Fairy' %}
-                            /static/images/Energy/fairy.png
-
-                            {% elif card['data']['types'][0] == 'Fighting' %}
-                            /static/images/Energy/fighting.png
-
-                            {% elif card['data']['types'][0] == 'Fire' %}
-                            /static/images/Energy/fire.png
-
-                            {% elif card['data']['types'][0] == 'Grass' %}
-                            /static/images/Energy/grass.png
-
-                            {% elif card['data']['types'][0] == 'Lightning' %}
-                            /static/images/Energy/lightning.png
-
-                            {% elif card['data']['types'][0] == 'Psychic' %}
-                            /static/images/Energy/psychic.png
-
-                            {% elif card['data']['types'][0] == 'Water' %}
-                            /static/images/Energy/water.png
-
-                            {% elif card['data']['types'][0] == 'Metal' %}
-                            /static/images/Energy/metal.png
-
+                            {% if type == 'Darkness' %} /static/images/Energy/darkness.png
+                            {% elif type == 'Colorless' %} /static/images/Energy/colorless.png
+                            {% elif type == 'Dragon' %} /static/images/Energy/dragon.png
+                            {% elif type == 'Fairy' %} /static/images/Energy/fairy.png
+                            {% elif type == 'Fighting' %} /static/images/Energy/fighting.png
+                            {% elif type == 'Fire' %} /static/images/Energy/fire.png
+                            {% elif type == 'Grass' %} /static/images/Energy/grass.png
+                            {% elif type == 'Lightning' %} /static/images/Energy/lightning.png
+                            {% elif type == 'Psychic' %} /static/images/Energy/psychic.png
+                            {% elif type == 'Water' %} /static/images/Energy/water.png
+                            {% elif type == 'Metal' %} /static/images/Energy/metal.png
                             {% endif %}
-                            " alt="">
-
-                            {% endif %}
+                            " alt="hp-symbol">
                         </span>
+                        {% endfor%}
+                        {% endif %}
                     </p>
                 </div>
                 {% endif %}
@@ -76,38 +49,37 @@
 
             <hr>
 
-            <!-- Card Pricing -->
             <div class="row">
                 {% if card['data']['tcgplayer'] %}
-                <h5>Prices   <span id="tcgplayer">  via <a href="{{card['data']['tcgplayer']['url']}}">TCG Player</a></span></h5>
-                {% if card['data']['tcgplayer']['prices']['holofoil'] %}
+                    <h5> Prices <span id="tcgplayer"> via <a href="{{card['data']['tcgplayer']['url']}}">TCG Player</a></span></h5>
+                    {% if card['data']['tcgplayer']['prices']['holofoil'] %}
 
-                <small class="mb-2">Updated {{card['data']['tcgplayer']['updatedAt']}}</small>
+                    <small class="mb-2">Updated {{card['data']['tcgplayer']['updatedAt']}}</small>
 
-                <div class="col-2 mt-2">
-                    <small class="fw-bold">Market Price</small>
-                    <p id="market-price">${{card['data']['tcgplayer']['prices']['holofoil']['market']}}</p>
-                </div>
-                <div class="col-2 mt-2">
-                    <small class="fw-bold">Low</small>
-                    <p id="low-price">${{card['data']['tcgplayer']['prices']['holofoil']['low']}}</p>
-                </div>
+                    <div class="col-2 mt-2">
+                        <small class="fw-bold">Market Price</small>
+                        <p id="market-price">${{card['data']['tcgplayer']['prices']['holofoil']['market']}}</p>
+                    </div>
+                    
+                    <div class="col-2 mt-2">
+                        <small class="fw-bold">Low</small>
+                        <p id="low-price">${{card['data']['tcgplayer']['prices']['holofoil']['low']}}</p>
+                    </div>
 
-                <div class="col-2 mt-2">
-                    <small class="fw-bold">Mid</small>
-                    <p id="mid-price">${{card['data']['tcgplayer']['prices']['holofoil']['mid']}}</p>
-                </div>
+                    <div class="col-2 mt-2">
+                        <small class="fw-bold">Mid</small>
+                        <p id="mid-price">${{card['data']['tcgplayer']['prices']['holofoil']['mid']}}</p>
+                    </div>
 
-                <div class="col-2 mt-2">
-                    <small class="fw-bold">High</small>
-                    <p id="high-price">${{card['data']['tcgplayer']['prices']['holofoil']['high']}}</p>
-                </div>
-                {% else %}
-                <p>N/A</p>
-                {% endif %}
+                    <div class="col-2 mt-2">
+                        <small class="fw-bold">High</small>
+                        <p id="high-price">${{card['data']['tcgplayer']['prices']['holofoil']['high']}}</p>
+                    </div>
+                    {% else %}
+                    <p>N/A</p>
+                    {% endif %}
                 {% endif %}
             </div>
-            
 
             <hr>
             
@@ -119,20 +91,36 @@
                     <h6 class="fw-bold mt-3"> {{card['data']['abilities'][0]['name']}}</h6>
                     <p> {{card['data']['abilities'][0]['text']}}</p>
                     {% endif %}
-                    </div>
                 </div>
+            </div>
                 <!-- Card Attacks -->
                 {% if card['data']['attacks']%}
                 <small class="fw-bold mt-3">Attacks</small>
                     {% if card['data']['attacks'][0] %}
                     <div class="row mt-3">
                         <div class="col">
-                            <h6 class="fw-bold">{{card['data']['attacks'][0]['name']}}</h6>
+                            {% for type in card['data']['attacks'][0]['cost'] %}
+                            <span><img id="attack-cost-symbol" src="
+                                {% if type == 'Darkness' %} /static/images/Energy/darkness.png
+                                {% elif type == 'Colorless' %} /static/images/Energy/colorless.png
+                                {% elif type == 'Dragon' %} /static/images/Energy/dragon.png
+                                {% elif type == 'Fairy' %} /static/images/Energy/fairy.png
+                                {% elif type == 'Fighting' %} /static/images/Energy/fighting.png
+                                {% elif type == 'Fire' %} /static/images/Energy/fire.png
+                                {% elif type == 'Grass' %} /static/images/Energy/grass.png
+                                {% elif type == 'Lightning' %} /static/images/Energy/lightning.png
+                                {% elif type == 'Psychic' %} /static/images/Energy/psychic.png
+                                {% elif type == 'Water' %} /static/images/Energy/water.png
+                                {% elif type == 'Metal' %} /static/images/Energy/metal.png
+                                {% endif %}
+                            " alt="">
+                            {% endfor %}
+                            </span>
+                            <span class="fw-bold ms-3">  {{card['data']['attacks'][0]['name']}}</span>
                         </div>
                         <div class="col-6">
                             <h5 class="fw-bold">{{card['data']['attacks'][0]['damage']}}</h5>
                         </div>
-                        
                     </div>
                     <div class="row">
                         <div class="col-7">
@@ -142,9 +130,26 @@
                     {% endif %}
                     
                     {% if card['data']['attacks'][1] %}
-                    <div class="row mt-3">
+                    <div class="row mt-2">
                         <div class="col">
-                            <h6 class="fw-bold">{{card['data']['attacks'][1]['name']}}</h6>
+                            {% for type in card['data']['attacks'][1]['cost'] %}
+                            <span><img id="attack-cost-symbol" src="
+                                {% if type == 'Darkness' %} /static/images/Energy/darkness.png
+                                {% elif type == 'Colorless' %} /static/images/Energy/colorless.png
+                                {% elif type == 'Dragon' %} /static/images/Energy/dragon.png
+                                {% elif type == 'Fairy' %} /static/images/Energy/fairy.png
+                                {% elif type == 'Fighting' %} /static/images/Energy/fighting.png
+                                {% elif type == 'Fire' %} /static/images/Energy/fire.png
+                                {% elif type == 'Grass' %} /static/images/Energy/grass.png
+                                {% elif type == 'Lightning' %} /static/images/Energy/lightning.png
+                                {% elif type == 'Psychic' %} /static/images/Energy/psychic.png
+                                {% elif type == 'Water' %} /static/images/Energy/water.png
+                                {% elif type == 'Metal' %} /static/images/Energy/metal.png
+                                {% endif %}
+                            " alt="">
+                                {% endfor %}
+                            </span>
+                            <span class="fw-bold ms-3">{{card['data']['attacks'][1]['name']}}</span>
                         </div>
                         <div class="col-6">
                             <h5 class="fw-bold">{{card['data']['attacks'][1]['damage']}}</h5>
@@ -157,44 +162,68 @@
                     </div>
                     {% endif %}
 
-                    {% elif card['data']['rules']%}
-                    <div class="row">
-                        <small class="fw-bold">Rules</small>
-                        <p>{{card['data']['rules'][0]}}</p>
-                    </div>
                     {% endif %}
                 
-
                     {% if card['data']['rules']%}
                     <div class = "row mt-3">
                         <div class="col-7">
                             <small class="fw-bold">Rules</small>
-                            <p>{{card['data']['rules'][0]}}</p>
+                            <p class="mt-2">{{card['data']['rules'][0]}}</p>
                         </div>
                     </div>
                     {% endif %}
-
                     
                     <div class="row mt-2">
                         <div class="col-4">
                             {% if card['data']['weaknesses'] %}
                             <small class="fw-bold">Weaknesses</small>
-                            <p>{{card['data']['weaknesses'][0]['type']}} {{card['data']['weaknesses'][0]['value']}}</p>
+                            <p>
+                                <img id="weakness-symbol" src="
+                                    {% if card['data']['weaknesses'][0]['type'] == 'Darkness' %} /static/images/Energy/darkness.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Colorless' %} /static/images/Energy/colorless.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Dragon' %} /static/images/Energy/dragon.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Fairy' %} /static/images/Energy/fairy.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Fighting' %} /static/images/Energy/fighting.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Fire' %} /static/images/Energy/fire.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Grass' %} /static/images/Energy/grass.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Lightning' %} /static/images/Energy/lightning.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Psychic' %} /static/images/Energy/psychic.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Water' %} /static/images/Energy/water.png
+                                    {% elif card['data']['weaknesses'][0]['type'] == 'Metal' %} /static/images/Energy/metal.png
+                                    {% endif %}        
+                                " alt="weakness-symbol">
+                                {{card['data']['weaknesses'][0]['value']}}
+                            </p>
                             {% endif %}
                         </div>
 
                         <div class="col-4">
                             {% if card['data']['retreatCost'] %}
                             <small class="fw-bold">Retreat Cost</small>
-                            <p>{{card['data']['retreatCost'][0]}}</p>
+                            <p>
+                                {% for trait in card['data']['retreatCost'] %}
+                                <span>
+                                    <img id="retreat-cost-symbol" src="
+                                    {% if trait == 'Colorless' %}/static/images/Energy/colorless.png
+                                    {% elif trait == 'Darkness' %}/static/images/Energy/darkness.png
+                                    {% elif trait == 'Dragon' %}/static/images/Energy/dragon.png
+                                    {% elif trait == 'Fairy' %}/static/images/Energy/fairy.png
+                                    {% elif trait == 'Fighting' %}/static/images/Energy/fire.png
+                                    {% elif trait == 'Grass' %}/static/images/Energy/grass.png
+                                    {% elif trait == 'Fire' %}/static/images/Energy/fire.png
+                                    {% elif trait == 'Lightning' %}/static/images/Energy/lightning.png
+                                    {% elif trait == 'Metal' %}/static/images/Energy/metal.png
+                                    {% elif trait == 'Psychic' %}/static/images/Energy/psychic.png
+                                    {% elif trait == 'Water' %}/static/images/Energy/water.png
+                                    {% endif %}
+                                    " alt="retreat-cost-symbol">
+                                </span>
+                                {% endfor %}
                             {% endif %}
+                            </p>
                         </div>
                     </div>
-           
-            
-
             <hr>
-
             <!-- Other card details -->
             <div class="row">
                 <div class="col-3">

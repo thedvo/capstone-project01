@@ -115,3 +115,24 @@ body {
 	margin-left: 5px;
 	margin-top: -5px;
 }
+
+#weakness-symbol {
+	height: 20px;
+	width: 20px;
+	margin-left: 5px;
+	margin-top: -5px;
+}
+
+#retreat-cost-symbol {
+	height: 20px;
+	width: 20px;
+	margin-left: 5px;
+	margin-top: -5px;
+}
+
+#attack-cost-symbol {
+	height: 20px;
+	width: 20px;
+	margin-left: 5px;
+	margin-top: -5px;
+}
