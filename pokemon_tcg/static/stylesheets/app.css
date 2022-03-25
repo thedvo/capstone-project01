@@ -101,3 +101,17 @@ body {
 #high-price {
 	color: rgb(255, 58, 58);
 }
+
+#set-symbol {
+	height: 22px;
+	width: 22px;
+	margin-left: 5px;
+	margin-top: -5px;
+}
+
+#hp-symbol {
+	height: 25px;
+	width: 25px;
+	margin-left: 5px;
+	margin-top: -5px;
+}

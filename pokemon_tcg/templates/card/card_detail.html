@@ -24,7 +24,52 @@
                 <!-- Health Points 'HP' -->
                 {% if card['data']['hp'] %}
                 <div class="col-6 mt-3">
-                    <p class="fw-bold">HP {{card['data']['hp']}}</p>
+                    <p class="fw-bold">HP {{card['data']['hp']}}
+                        <span>
+                            {% if card['data']['types'] %}
+                            <img id="hp-symbol" src="
+                            {% if card['data']['types'][0] == 'Darkness' %}
+                            /static/images/Energy/darkness.png
+
+                            {% elif card['data']['types'][0] == 'Colorless' %}
+                            /static/images/Energy/colorless.png
+
+                            {% elif card['data']['types'][0] == 'Darkness' %}
+                            /static/images/Energy/darkness.png
+
+                            {% elif card['data']['types'][0] == 'Dragon' %}
+                            /static/images/Energy/dragon.png
+
+                            {% elif card['data']['types'][0] == 'Fairy' %}
+                            /static/images/Energy/fairy.png
+
+                            {% elif card['data']['types'][0] == 'Fighting' %}
+                            /static/images/Energy/fighting.png
+
+                            {% elif card['data']['types'][0] == 'Fire' %}
+                            /static/images/Energy/fire.png
+
+                            {% elif card['data']['types'][0] == 'Grass' %}
+                            /static/images/Energy/grass.png
+
+                            {% elif card['data']['types'][0] == 'Lightning' %}
+                            /static/images/Energy/lightning.png
+
+                            {% elif card['data']['types'][0] == 'Psychic' %}
+                            /static/images/Energy/psychic.png
+
+                            {% elif card['data']['types'][0] == 'Water' %}
+                            /static/images/Energy/water.png
+
+                            {% elif card['data']['types'][0] == 'Metal' %}
+                            /static/images/Energy/metal.png
+
+                            {% endif %}
+                            " alt="">
+
+                            {% endif %}
+                        </span>
+                    </p>
                 </div>
                 {% endif %}
             </div>
@@ -173,7 +218,13 @@
             <div class="row mt-3 mb-3">
                 <div class="col-3">
                     <small class="fw-bold">Set</small>
-                    <p>{{card['data']['set']['name']}}</p>
+                    <p> {{card['data']['set']['name']}}
+                        
+                    {% if card['data']['set']['images']['symbol'] %}
+                    <span><img id="set-symbol" src="{{card['data']['set']['images']['symbol']}}" alt=""></span>
+                    {% endif %}
+            
+                    </p>
                 </div>
 
                 <div class="col-3">
