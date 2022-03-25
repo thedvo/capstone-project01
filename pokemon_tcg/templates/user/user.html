@@ -4,42 +4,41 @@
 
 {% block content %}
 <div class="row">
-<div class="col-4">
-    <div class="row ms-5">
-        <div class="row mt-5">
-            <div class="col">
-                <img src="{{ g.user.profile_image }}" alt="Image for {{ g.user.username }}" id="profile-avatar" class="img-thumbnail mb-2">
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
-                <h4 class="fw-bold" id="sidebar-username">{{ g.user.username }}</h4>
+    <!-- User Details (left side of page) -->
+    <div class="col-4">
+        <div class="row ms-5">
+            <div class="row mt-5">
+                <div class="col">
+                    <img src="{{ g.user.profile_image }}" alt="Image for {{ g.user.username }}" id="profile-avatar" class="img-thumbnail mb-2">
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-3">
-            <div class="col">
-                <p>Favorites</p>
-                <p id="number-favorites"><a href="/user/{{g.user.id}}/favorites">{{ g.user.favorites | length}}</a></p>
+            <div class="row">
+                <div class="col">
+                    <h4 class="fw-bold" id="sidebar-username">{{ g.user.username }}</h4>
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-2">
-            <div class="col mb-1">
-                    <a href="/users/profile" class="btn btn-secondary btn-sm" id="profile-edit-btn">Edit Profile</a>
+            <div class="row mt-3">
+                <div class="col">
+                    <p>Favorites</p>
+                    <p id="number-favorites"><a href="/user/{{g.user.id}}/favorites">{{ g.user.favorites | length}}</a></p>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col mb-1">
+                        <a href="/users/profile" class="btn btn-secondary btn-sm" id="profile-edit-btn">Edit Profile</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
-<div class="col-8 mt-3">
-    {% block user_details %}{% endblock %}
-    
-    <!-- AREA FOR USER'S FAVORITE CARDS -->
-</div>
+    <!-- User Favorites & Edit User Form (right side of page) -->
+    <div class="col-8 mt-3">
+        {% block user_details %}{% endblock %}  <!-- Imports form from 'form.html' -->
+    </div>
 </div>
 
 {% endblock %}

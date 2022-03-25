@@ -10,35 +10,34 @@
         <p class="fs-5">The Ultimate Pokemon Trading Card Database</p>
     </div>
 
+    <!-- Pokemon Card Search Bar -->
     <div class="container">
         <form action="/cards/">
-            <div class="input-group mt-4">
-                <input type="text" class="form-control" placeholder="Search a Pokemon  (ex. 'lugia' or 'jirachi')" aria-label="Card Search" name="pokemon-search"
-                    aria-describedby="button-addon2" autocomplete="off">
-                <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
-            </div>
+        <div class="input-group mt-4">
+            <input type="text" class="form-control" placeholder="Search a Pokemon  (ex. 'lugia' or 'jirachi')" aria-label="Card Search" name="pokemon-search"
+                aria-describedby="button-addon2" autocomplete="off">
+            <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
+        </div>
         </form>
     </div>
 </div>
 
-
-    
+<!-- Pokemon Cards on Home Page  -->
 <div class="container mt-5 text-center">
-    <!-- <img src="{{cards[0]['card1']['images']['small']}}" alt=""> -->
     <a href="/cards/{{cards[1]['card2']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[1]['card2']['images']['small']}}" alt="">
+        <img class="me-1 homepage-card" src="{{cards[1]['card2']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 
     <a href="/cards/{{cards[2]['card3']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[2]['card3']['images']['small']}}" alt="">
+        <img class="me-1 homepage-card" src="{{cards[2]['card3']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 
     <a href="/cards/{{cards[3]['card4']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[3]['card4']['images']['small']}}" alt="">
+        <img class="me-1 homepage-card" src="{{cards[3]['card4']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 
     <a href="/cards/{{cards[4]['card5']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[4]['card5']['images']['small']}}" alt="">
+        <img class="me-1 homepage-card" src="{{cards[4]['card5']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 </div>
 

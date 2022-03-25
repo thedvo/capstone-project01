@@ -1,6 +1,8 @@
 from models import *
 from app import app
 
-# Create all tables
+# Clear any old tables
 db.drop_all()
+
+# Create all tables
 db.create_all()

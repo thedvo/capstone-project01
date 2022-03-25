@@ -13,7 +13,6 @@ uri = os.environ.get('DATABASE_URL', 'postgresql:///pokemon_tcg')
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
-
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,9 +23,9 @@ toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
-API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
-CURR_USER_KEY = "current_user"
 
+############################################################################################
+API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
 ############################################################################################
 # POKEMON TCG API ROUTES - CARDS
 
@@ -69,6 +68,8 @@ def get_card_details(id):
 
 ############################################################################################
 # USER SESSION 
+
+CURR_USER_KEY = "current_user"
  
 @app.before_request   # This function is run before each request. 
 def add_user_to_g():
@@ -79,16 +80,13 @@ def add_user_to_g():
         # if there is currently a logged in user, query that user 
         # A common use for 'g' is to manage resources during a request. The g name stands for “global”, but that is referring to the data being global within a context.
         # Use the session or a database to store data across requests. The application context is a good place to store common data during a request.
-
     else:
         g.user = None
-
 
 def do_login(user):
     """Log in user."""
 
     session[CURR_USER_KEY] = user.id
-
 
 def do_logout():
     """Logout user."""
@@ -133,7 +131,6 @@ def signup():
 
     If the username is already taken,flash message and re-present form.
     """
-
     if g.user:
         flash("Already logged in. If you would like to make a new account, please logout of the current account.", "danger")
         return redirect("/")
@@ -215,7 +212,6 @@ def show_user_profile():
                 .limit(100)
                 .all())
 
-    
     return render_template('user/user.html', favorites=favorites)
 
 
@@ -264,9 +260,6 @@ def delete_user():
 
     flash('User has been deleted.' , "success")
     return redirect("/signup")
-    
-
-
 
 ############################################################################################
 # FAVORITE ROUTES 
@@ -283,12 +276,12 @@ def delete_user():
 def page_not_found(e):
     return render_template('error_handlers/404.html'), 404
 
-
+############################################################################################
+# Fix for error ---> sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
 # https://stackoverflow.com/questions/24956894/sql-alchemy-queuepool-limit-overflow
-# sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
-
 # https://stackoverflow.com/questions/57844921/good-practice-to-avoid-sqlalchemy-exc-timeouterror-queuepool-limit-of-size-5-ov
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()
+############################################################################################

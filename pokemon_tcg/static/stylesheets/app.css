@@ -14,6 +14,7 @@ body {
 	margin-top: auto;
 	height: 150px;
 }
+/* *********** Navigation Bar ***************/
 
 .navbar-brand > img {
 	display: inline-block;
@@ -30,6 +31,9 @@ body {
 	margin-left: 0.25em;
 	margin-right: 1em;
 }
+/* **************************************** */
+
+/* *********** User Profile ****************/
 
 #profile-avatar {
 	height: 175px;
@@ -42,11 +46,6 @@ body {
 	margin-top: -20px;
 }
 
-#edit-fields {
-	margin-bottom: -6px;
-	margin-top: 15px;
-}
-
 #profile-edit-btn {
 	width: 100px;
 }
@@ -55,6 +54,13 @@ body {
 	width: 100px;
 }
 
+#edit-fields {
+	margin-bottom: -6px;
+	margin-top: 15px;
+}
+/* **************************************** */
+
+/* *********** Pokemon Cards ****************/
 .homepage-card {
 	transition: margin 0.2s ease-in-out;
 	width: 200px;
@@ -75,6 +81,9 @@ body {
 .pokemon-card-search-image:hover {
 	transform: scale(1.1);
 }
+/* ******************************************** */
+
+/* *********** Card Detail Page ****************/
 
 #card-detail-img {
 	border-radius: 8px;
@@ -136,3 +145,4 @@ body {
 	margin-left: 5px;
 	margin-top: -5px;
 }
+/* ***************************************** */
