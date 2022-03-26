@@ -85,6 +85,10 @@ body {
 
 /* *********** Card Detail Page ****************/
 
+#card-detail-container {
+	margin-left: 60px;
+}
+
 #card-detail-img {
 	border-radius: 8px;
 	width: 350px;
@@ -146,3 +150,7 @@ body {
 	margin-top: -5px;
 }
 /* ***************************************** */
+
+.hr {
+	width: 75%;
+}
