@@ -27,7 +27,7 @@ connect_db(app)
 ############################################################################################
 API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
 ############################################################################################
-# POKEMON TCG API ROUTES - CARDS
+# POKEMON TCG API REQUEST METHODS - CARDS
 
 def request_cards(pokemon):
     """Return the dictionary containing the Pokemon card info"""
@@ -40,6 +40,21 @@ def request_cards(pokemon):
   
     return {"data": data}
 
+
+def request_individual_card_details(pokemon_id):
+    """ Return dictionary containing an individual card's details """
+
+    url= f'{API_BASE_URL}/{pokemon_id}'
+    response = requests.get(url)
+    data = response.json()
+
+    # this data will be used for HTML template
+    data = data['data']
+
+    return {"data": data}
+
+############################################################################################
+# POKEMON TCG API ROUTES - CARDS
 
 @app.route('/cards/')
 def get_pokemon_cards():
@@ -55,14 +70,28 @@ def get_pokemon_cards():
 def get_card_details(id):
     """Display details for an individual card"""
 
-    url= f'{API_BASE_URL}/{id}'
-    response = requests.get(url)
-    data = response.json()
+    data = request_individual_card_details(id)
+  
+    # card data will be added to database when user clicks into an individual card
+    card_id = data['data']['id']
+    card_name = data['data']['name']
 
-    data = data['data']
+    # checks if the current card has already been added to the database
+    check_card = Card.query.get(card_id)
+    
+    # If it has not been added, add it. 
+    if not check_card:
+        add_card = Card(id = card_id, name=card_name)
+        
+        db.session.add(add_card)
+        db.session.commit() 
+
+    # if the user is logged in, they should be able to add/remove favorites. 
+    if g.user:
+        favorite_cards = [favorite.id for favorite in g.user.favorites]
+        return render_template('card/card_detail.html', card = data, favorites = favorite_cards)
+        
    
-    card = {"data": data}
-
     return render_template('card/card_detail.html', card = card)
 
 
@@ -93,6 +122,7 @@ def do_logout():
 
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
+
 ############################################################################################
 # HOMEPAGE ROUTES
 
@@ -199,23 +229,20 @@ def logout():
 ############################################################################################
 # USER ROUTES 
 
-@app.route('/users')
+@app.route('/user')
 def show_user_profile():
     """Show user profile."""
 
-    user_id = g.user.id
+    if not g.user:
+        flash("You need to log in or sign up for an account.", "danger")
+        return redirect("/")
 
-    # retrieve the user's favorite cards to display on their profile;
-    favorites = (Favorite
-                .query
-                .filter(Favorite.user_id == g.user.id)
-                .limit(100)
-                .all())
+    user_favorites = [request_individual_card_details(cards.id)['data'] for cards in g.user.favorites]
 
-    return render_template('user/user.html', favorites=favorites)
+    return render_template('user/favorites.html', favorites = user_favorites)
 
 
-@app.route('/users/profile', methods=["GET", "POST"])
+@app.route('/user/profile', methods=["GET", "POST"])
 def edit_profile():
     """Update profile details for current user."""
 
@@ -237,14 +264,14 @@ def edit_profile():
 
             flash("Profile successfully updated.", "success")
 
-            return redirect(f"/users/{user.id}")
+            return redirect(f"/user/{user.id}")
         
         flash("Wrong password, please try again.", 'danger')
 
     return render_template('user/edit_user.html', form=form, user_id=user.id)
 
 
-@app.route('/users/delete', methods=["POST"])
+@app.route('/user/delete', methods=["POST"])
 def delete_user():
     """Delete user."""
 
@@ -264,10 +291,27 @@ def delete_user():
 ############################################################################################
 # FAVORITE ROUTES 
 
+@app.route('/cards/<card_id>/favorite', methods=['POST'])
+def add_favorite(card_id):
+    """Adds/Removes like from a card"""
 
+    if not g.user:
+        flash('Please login to favorite a card.', 'danger')
+        return redirect('/')
 
+    # query the card to see if it is in the 'favorites' table (meaning it has been favorited)
+    favorited_card = Card.query.get_or_404(card_id)
+    # get the user's favorites
+    user_favorites = g.user.favorites
 
+    if favorited_card in user_favorites:
+        g.user.favorites = [favorite for favorite in user_favorites if favorite != favorited_card]
+    else: 
+        g.user.favorites.append(favorited_card)
+    
+    db.session.commit()
 
+    return redirect(request.referrer)
 
 ############################################################################################
 # ERROR HANDLERS
@@ -285,3 +329,4 @@ def page_not_found(e):
 def shutdown_session(exception=None):
     db.session.remove()
 ############################################################################################
+

@@ -1,6 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'user/user.html' %}
 
-{% block title %}{% endblock %}
-
-
-{% block content %}{% endblock %}
+{% block user_details %}
+<div class="row mt-4">
+    {% for card in favorites %}
+    <div class="col-3">
+        <a href="/cards/{{card['id']}}">
+            <img class="mb-4 pokemon-card-search-image" src="{{ card['images']['small'] }}"
+                alt="{{ card['name'] }} card image">
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

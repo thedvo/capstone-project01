@@ -79,7 +79,7 @@ class Card(db.Model):
 
     __tablename__ = 'cards'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Text, primary_key=True)
     name = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
@@ -93,8 +93,8 @@ class Favorite(db.Model):
     __tablename__ = 'favorites' 
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), primary_key=True)
-    card_id = db.Column(db.Integer, db.ForeignKey('cards.id', ondelete='cascade'), primary_key=True)
+    card_id = db.Column(db.Text, db.ForeignKey('cards.id', ondelete='cascade'), primary_key=True)
 
     def __repr__(self):
-        return f"<Favorites || User #{self.id} || Card # {self.card_id}>"
+        return f"<Favorites | User {self.user_id} | Card {self.card_id}>"
     

@@ -85,14 +85,14 @@ body {
 
 /* *********** Card Detail Page ****************/
 
-#card-detail-container {
+/* #card-detail-container {
 	margin-left: 60px;
-}
+} */
 
 #card-detail-img {
 	border-radius: 8px;
-	width: 350px;
-	height: 440px;
+	max-width: 350px;
+	max-height: 440px;
 }
 
 #tcgplayer {

@@ -13,6 +13,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="/static/stylesheets/app.css">
@@ -56,7 +59,7 @@
                     <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/users"> {{ g.user.username }}  
+                        <a class="nav-link" href="/user"> {{ g.user.username }}  
                             <img src="{{ g.user.profile_image }}" alt="{{ g.user.username }}" id="navbar-profile-img">
                         </a>
                     </li>
