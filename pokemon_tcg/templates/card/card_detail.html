@@ -5,13 +5,23 @@
 {% block content %}
 <div class="container-fluid" id="card-detail-container">
     <div class="row mx-auto justify-content-center">
-        <div class="mt-4 col">
+        <!-- Card Image -->
+        <div class="mt-4 col-sm-10 col-md-8 col-lg-5">
             <img src="{{card['data']['images']['large']}}" id="card-detail-img" class="img-fluid mx-auto d-block" alt="">
+            <!-- Favorite Button -->
+            <form method="POST" action="/cards/{{ card['data']['id'] }}/favorite" id="favorite-card-form">
+                <button 
+                    class="btn btn-sm mx-auto d-block mt-4 {{'btn-danger' if card['data']['id'] in favorites else 'btn-info'}}">
+                    <i class="fa-solid fa-star"></i> 
+                    {{'Remove Favorite' if card['data']['id'] in favorites else 'Add Favorite'}}
+                </button>
+            </form>
         </div>
 
-        <div class="col-8 mt-3">
+        <div class="col col-sm-11 col-md-11 col-lg-7 mt-3">
             <div class="row">
-                <div class="col">
+                <!-- Card Name & Type -->
+                <div class="col-10 col-sm-9 col-md-9">
                     <h2>{{card['data']['name']}}</h2>
                     {% if card['data']['subtypes'] %}
                     <p>{{card['data']['supertype']}} - {{card['data']['subtypes'][0]}}</p>
@@ -19,7 +29,7 @@
                 </div>
                 <!-- Health Points 'HP' -->
                 {% if card['data']['hp'] %}
-                <div class="col-6 mt-3">
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 mt-3">
                     <p class="fw-bold">HP {{card['data']['hp']}}
                         {% if card['data']['types'] %}
                         {% for type in card['data']['types'] %}
@@ -44,17 +54,11 @@
                     </p>
                 </div>
                 {% endif %}
-                <div>
-                    <form method="POST" action="/cards/{{ card['data']['id'] }}/favorite" id="favorite-card-form">
-                        <button class="btn btn-sm
-                        {{'btn-info' if card['data']['id'] in favorites else 'btn-secondary'}}
-                        "><i class="fa-solid fa-star"></i></i></button>
-                    </form>
-                </div>
             </div>
 
             <hr class="hr">
-
+            
+            <!-- Card Pricing -->
             <div class="row">
                 {% if card['data']['tcgplayer'] %}
                     <h5> Prices <span id="tcgplayer"> via <a href="{{card['data']['tcgplayer']['url']}}">TCG Player</a></span></h5>
@@ -62,22 +66,22 @@
 
                     <small class="mb-2">Updated {{card['data']['tcgplayer']['updatedAt']}}</small>
 
-                    <div class="col-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
                         <small class="fw-bold">Market Price</small>
                         <p id="market-price">${{card['data']['tcgplayer']['prices']['holofoil']['market']}}</p>
                     </div>
                     
-                    <div class="col-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
                         <small class="fw-bold">Low</small>
                         <p id="low-price">${{card['data']['tcgplayer']['prices']['holofoil']['low']}}</p>
                     </div>
 
-                    <div class="col-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
                         <small class="fw-bold">Mid</small>
                         <p id="mid-price">${{card['data']['tcgplayer']['prices']['holofoil']['mid']}}</p>
                     </div>
 
-                    <div class="col-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
                         <small class="fw-bold">High</small>
                         <p id="high-price">${{card['data']['tcgplayer']['prices']['holofoil']['high']}}</p>
                     </div>
@@ -89,17 +93,18 @@
 
             <hr class="hr">
             
+            <!-- Card Details -->
             <div class="row">
                 <div class="row">
-                    <div class="col-7">
-                    {% if card['data']['abilities'] %}
-                    <small class="fw-bold">Ability</small>
-                    <h6 class="fw-bold mt-3"> {{card['data']['abilities'][0]['name']}}</h6>
-                    <p> {{card['data']['abilities'][0]['text']}}</p>
-                    {% endif %}
+                    <div class="col-11 col-sm-10 col-md-9 col-lg-9">
+                        {% if card['data']['abilities'] %}
+                        <small class="fw-bold">Ability</small>
+                        <h6 class="fw-bold mt-3"> {{card['data']['abilities'][0]['name']}}</h6>
+                        <p> {{card['data']['abilities'][0]['text']}}</p>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-                <!-- Card Attacks -->
+                <!-- Attacks -->
                 {% if card['data']['attacks']%}
                 <small class="fw-bold mt-3">Attacks</small>
                     {% if card['data']['attacks'][0] %}
@@ -124,12 +129,12 @@
                             </span>
                             <span class="fw-bold ms-3">  {{card['data']['attacks'][0]['name']}}</span>
                         </div>
-                        <div class="col-6">
+                        <div class="col-2 col-md-2 col-lg-2">
                             <h5 class="fw-bold">{{card['data']['attacks'][0]['damage']}}</h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-11 col-sm-10 col-md-9 col-lg-9">
                             <p>{{card['data']['attacks'][0]['text']}}</p>
                         </div>
                     </div>
@@ -157,30 +162,30 @@
                             </span>
                             <span class="fw-bold ms-3">{{card['data']['attacks'][1]['name']}}</span>
                         </div>
-                        <div class="col-6">
+                        <div class="col-2 col-md-2 col-lg-2">
                             <h5 class="fw-bold">{{card['data']['attacks'][1]['damage']}}</h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-11 col-sm-10 col-md-9 col-lg-9">
                             <p>{{card['data']['attacks'][1]['text']}}</p>
                         </div>
                     </div>
                     {% endif %}
 
                     {% endif %}
-                
+                    <!-- Rules -->
                     {% if card['data']['rules']%}
                     <div class = "row mt-3">
-                        <div class="col-7">
+                        <div class="col-11 col-sm-10 col-md-9 col-lg-9">
                             <small class="fw-bold">Rules</small>
                             <p class="mt-2">{{card['data']['rules'][0]}}</p>
                         </div>
                     </div>
                     {% endif %}
-                    
+                    <!-- Weaknesses -->
                     <div class="row mt-2">
-                        <div class="col-4">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-5">
                             {% if card['data']['weaknesses'] %}
                             <small class="fw-bold">Weaknesses</small>
                             <p>
@@ -202,8 +207,8 @@
                             </p>
                             {% endif %}
                         </div>
-
-                        <div class="col-4">
+                        <!-- Retreat Cost -->
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-5">
                             {% if card['data']['retreatCost'] %}
                             <small class="fw-bold">Retreat Cost</small>
                             <p>
@@ -229,29 +234,30 @@
                             </p>
                         </div>
                     </div>
+            </div>
             <hr class="hr">
             <!-- Other card details -->
             <div class="row">
-                <div class="col-3">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                     <small class="fw-bold">Artist</small>
                     <p> {{card['data']['artist']}} </p>
                 </div>
                 
                 {% if card['data']['nationalPokedexNumbers'] %}
-                <div class="col-3">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                     <small class="fw-bold">Pokedex Number</small>
                     <p>{{card['data']['nationalPokedexNumbers'][0]}} </p>
                 </div>
                 {% endif %}
 
-                <div class="col-3">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                     <small class="fw-bold">Rarity</small>
                     <p>{{card['data']['rarity']}} </p>
                 </div>
             </div>
             
             <div class="row mt-2 mb-5">
-                <div class="col-3">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                     <small class="fw-bold">Set</small>
                     <p> {{card['data']['set']['name']}}
                         
@@ -262,12 +268,12 @@
                     </p>
                 </div>
 
-                <div class="col-3">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                     <small class="fw-bold">Number</small>
                     <p>{{card['data']['number']}} / {{card['data']['set']['total']}}</p>
                 </div>
 
-                <div class="col-3">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                     <small class="fw-bold">Release Date</small>
                     <p>{{card['data']['set']['releaseDate']}}</p>
                 </div>

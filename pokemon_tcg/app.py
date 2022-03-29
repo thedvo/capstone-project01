@@ -61,9 +61,14 @@ def get_pokemon_cards():
     """Handle form submission; return form; show cards related to search query"""
 
     pokemon = request.args.get('pokemon-search')
+
+    if not str.isalpha(pokemon):
+        flash("Invalid characters in search. Please try something else.", "danger")
+        return redirect("/")
+
     card = request_cards(pokemon)
 
-    return render_template('card/cards.html', cards = card)
+    return render_template('card/cards.html', cards = card, pokemon = pokemon)
 
 
 @app.route('/cards/<id>')
@@ -92,7 +97,7 @@ def get_card_details(id):
         return render_template('card/card_detail.html', card = data, favorites = favorite_cards)
         
    
-    return render_template('card/card_detail.html', card = card)
+    return render_template('card/card_detail.html', card = data)
 
 
 ############################################################################################
@@ -242,7 +247,7 @@ def show_user_profile():
     return render_template('user/favorites.html', favorites = user_favorites)
 
 
-@app.route('/user/profile', methods=["GET", "POST"])
+@app.route('/user/edit', methods=["GET", "POST"])
 def edit_profile():
     """Update profile details for current user."""
 
@@ -264,7 +269,7 @@ def edit_profile():
 
             flash("Profile successfully updated.", "success")
 
-            return redirect(f"/user/{user.id}")
+            return redirect("/user")
         
         flash("Wrong password, please try again.", 'danger')
 

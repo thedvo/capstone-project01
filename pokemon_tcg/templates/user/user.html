@@ -5,12 +5,12 @@
 {% block content %}
 <div class="row full-width">
 
-    <!-- User Details (left side of page) -->
-    <div class="col-xs-6 col-sm-4 col-md-3">
+    <!-- User Details -->
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
         <div class="row ms-5 text-center">
             <div class="row mt-5">
                 <div class="col">
-                    <img src="{{ g.user.profile_image }}" alt="Image for {{ g.user.username }}" id="profile-avatar" class="img-thumbnail mb-2">
+                    <img src="{{ g.user.profile_image }}" alt="Image for {{ g.user.username }}" id="profile-avatar" class="img-thumbnail img-fluid mb-2">
                 </div>
             </div>
 
@@ -27,18 +27,18 @@
                 </div>
             </div>
             
-            {% if 'user/profile' in request.path %}
+            {% if 'user/edit' in request.path %}
             {% else %}
             <div class="row mt-2">
                 <div class="col mb-1">
-                        <a href="/user/profile" class="btn btn-secondary btn-sm" id="profile-edit-btn">Edit Profile</a>
+                        <a href="/user/edit" class="btn btn-secondary btn-sm" id="profile-edit-btn">Edit Profile</a>
                 </div>
             </div>
            {% endif %}
         </div>
     </div>
 
-    <!-- User Favorites & Edit User Form (right side of page) -->
+    <!-- Favorites & Edit User Form -->
     <div class="col-xs-6 col-sm-7 col-md-8 mt-3">
         {% block user_details %}{% endblock %}  
     </div>

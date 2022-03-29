@@ -2,14 +2,23 @@
 {% block title %}Search Results{% endblock %}
 {% block content %}
 <div class="container-fluid">
+    <h4 class="mt-4 ms-4">Search results for 
+        <b class="text-info">'{{pokemon}}'</b> 
+        ({{ cards['data'] | length}})</h4>
     <div class="row text-center mt-4">
+        {% if cards['data'] | length != 0 %}
         {% for card in cards['data'] %}
-        <div class="col-2 me-3 ms-4">
+        <div class="col-6 col-sm-5 col-md-4 col-lg-3">
             <a href="/cards/{{card['id']}}">
-            <img class="mb-4 pokemon-card-search-image" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
+            <img class="mb-4 pokemon-card-search-image image-fluid" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
             </a>
         </div>
         {% endfor %}
+        {% else %}
+        <h2>No Results Found...</h2>
+        <img src="https://64.media.tumblr.com/e48926b785865fc197991692e36ee30c/tumblr_pbi5ztzxVh1wgjd46o1_540.gifv" id="no-results-gif" alt="">
+        <h3>That's no fun!</h3>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -14,7 +14,7 @@
     <div class="container">
         <form action="/cards/">
         <div class="input-group mt-4">
-            <input type="text" class="form-control" placeholder="Search a Pokemon  (ex. 'lugia' or 'jirachi')" aria-label="Card Search" name="pokemon-search"
+            <input type="text" class="form-control" placeholder="Search a Pokemon (try 'blaziken' or 'venusaur')" aria-label="Card Search" name="pokemon-search"
                 aria-describedby="button-addon2" autocomplete="off">
             <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
         </div>
@@ -25,19 +25,19 @@
 <!-- Pokemon Cards on Home Page  -->
 <div class="container mt-5 text-center">
     <a href="/cards/{{cards[1]['card2']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[1]['card2']['images']['small']}}" alt="pokemon card on homepage">
+        <img class="me-2 mb-2 homepage-card" src="{{cards[1]['card2']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 
     <a href="/cards/{{cards[2]['card3']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[2]['card3']['images']['small']}}" alt="pokemon card on homepage">
+        <img class="me-2 mb-2 homepage-card" src="{{cards[2]['card3']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 
     <a href="/cards/{{cards[3]['card4']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[3]['card4']['images']['small']}}" alt="pokemon card on homepage">
+        <img class="me-2 mb-2 homepage-card" src="{{cards[3]['card4']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 
     <a href="/cards/{{cards[4]['card5']['id']}}">
-        <img class="me-1 homepage-card" src="{{cards[4]['card5']['images']['small']}}" alt="pokemon card on homepage">
+        <img class="me-2 mb-2 homepage-card" src="{{cards[4]['card5']['images']['small']}}" alt="pokemon card on homepage">
     </a>
 </div>
 

@@ -18,10 +18,10 @@ body {
 
 .navbar-brand > img {
 	display: inline-block;
-	margin-right: 2px;
-	margin-top: -8px;
-	width: 45px;
-	height: 45px;
+	margin-right: -5px;
+	margin-top: -15px;
+	width: 50px;
+	height: 50px;
 }
 
 #navbar-profile-img {
@@ -63,8 +63,8 @@ body {
 /* *********** Pokemon Cards ****************/
 .homepage-card {
 	transition: margin 0.2s ease-in-out;
-	width: 200px;
-	height: 275px;
+	max-width: 200px;
+	max-height: 275px;
 }
 
 .homepage-card:hover {
@@ -74,8 +74,8 @@ body {
 .pokemon-card-search-image {
 	transition: all 0.2s ease-in-out;
 	border-radius: 8px;
-	width: 235px;
-	height: 310px;
+	max-width: 235px;
+	max-height: 310px;
 }
 
 .pokemon-card-search-image:hover {
@@ -85,9 +85,14 @@ body {
 
 /* *********** Card Detail Page ****************/
 
-/* #card-detail-container {
-	margin-left: 60px;
-} */
+#no-results-gif {
+	max-width: 400px;
+	max-height: 400px;
+	margin: auto;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
 
 #card-detail-img {
 	border-radius: 8px;
@@ -116,41 +121,45 @@ body {
 }
 
 #set-symbol {
-	height: 22px;
-	width: 22px;
+	max-height: 22px;
+	max-width: 22px;
 	margin-left: 5px;
 	margin-top: -5px;
 }
 
 #hp-symbol {
-	height: 25px;
-	width: 25px;
+	max-height: 25px;
+	max-width: 25px;
 	margin-left: 5px;
 	margin-top: -5px;
 }
 
 #weakness-symbol {
-	height: 20px;
-	width: 20px;
+	max-height: 20px;
+	max-width: 20px;
 	margin-left: 5px;
 	margin-top: -5px;
 }
 
 #retreat-cost-symbol {
-	height: 20px;
-	width: 20px;
+	max-height: 20px;
+	max-width: 20px;
 	margin-left: 5px;
 	margin-top: -5px;
 }
 
 #attack-cost-symbol {
-	height: 20px;
-	width: 20px;
+	max-height: 20px;
+	max-width: 20px;
 	margin-left: 5px;
 	margin-top: -5px;
 }
-/* ***************************************** */
 
-.hr {
-	width: 75%;
+#error-page-gif {
+	max-width: 400px;
+	max-height: 400px;
+	margin: auto;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }

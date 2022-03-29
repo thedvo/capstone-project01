@@ -3,7 +3,7 @@
 {% block user_details %}
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-11 col-sm-8 col-md-6 mx-auto">
         <h2 class="join-message mb-3">Edit Profile</h2>
         <form method="POST" id="user_form">
             {{ form.hidden_tag() }}
@@ -30,7 +30,7 @@
             </div>   
         </form>
     </div>
-    <div class="col mt-3 ms-5">
+    <div class="col mt-5 ms-5 mb-5 mx-auto text-center">
         <form method="POST" action="/user/delete">
             <button class="btn btn-danger btn-sm ms-1" id="profile-delete-btn">Delete User</button>
         </form>
