@@ -8,6 +8,13 @@
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+
     <!-- Bootswatch CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css">
 
@@ -27,48 +34,60 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <div>
-                <a class="navbar-brand" href="/">
-                    <img src="/static/images/favicon/marowak.png" alt="navbar-home-button">
-                    <span>Pokemon TCG Search</span>
-                </a>
-            </div>
-            
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        {% if isIndex != True %}
-                        <form class="navbar-form align-items-end" action="/cards/">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div>
+            <a class="navbar-brand ms-3" href="/">
+                <img src="/static/images/favicon/marowak.png" alt="home-button">
+                Pokemon TCG Search
+            </a>
+        </div>
+        <!-- Hamburger Button -->
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto col-9 mx-auto mt-1 mb-1">
+                <li class="nav-item">
+                    {% if isIndex != True %}
+                    <form class="navbar-form align-items-end" action="/cards/">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" aria-label="Card Search"
                                 aria-describedby="button-addon2" name="pokemon-search" autocomplete="off">
-                            <button class="btn btn-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
+                            <button class="btn btn-secondary" type="button" id="button-addon2"><span
+                                    class="fa fa-search"></span>
+                            </button>
                         </div>
-                        </form>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-
-            <div id="navbarColor01">
-                <ul class="nav navbar-nav me-auto navbar-right">
+                    </form>
+                    {% endif %}
+                </li>      
+            </ul>
+            <div>
+                <ul class="nav navbar-nav me-auto navbar-right navbar-collapse">
                     {% if not g.user %}
-                    <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-label="Sign Up" href="/signup">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-label="Login" href="/login">Log in</a></li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/user"> {{ g.user.username }}  
+                        <a class="nav-link" href="/user"> {{ g.user.username }}
                             <img src="{{ g.user.profile_image }}" alt="{{ g.user.username }}" id="navbar-profile-img">
                         </a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-label="Logout" href="/logout">Logout</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
+
 
     <!-- Flash Messages  -->
     <div class="container-fluid mt-3" id="page-container">

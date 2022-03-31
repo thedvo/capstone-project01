@@ -8,9 +8,9 @@
     <div class="row text-center mt-4">
         {% if cards['data'] | length != 0 %}
         {% for card in cards['data'] %}
-        <div class="col-6 col-sm-5 col-md-4 col-lg-3">
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
             <a href="/cards/{{card['id']}}">
-            <img class="mb-4 pokemon-card-search-image image-fluid" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
+            <img class="mb-4 pokemon-card-search-image img-fluid" src="{{ card['images']['small'] }}" alt="{{ card['name'] }} card image">
             </a>
         </div>
         {% endfor %}

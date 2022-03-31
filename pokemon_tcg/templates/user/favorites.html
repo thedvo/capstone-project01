@@ -3,9 +3,9 @@
 {% block user_details %}
 <div class="row text-center mt-4">
     {% for card in favorites %}
-    <div class="col-6 col-sm-7 col-md-6 col-lg-4">
+    <div class="col-6 col-sm-6 col-md-6 col-lg-4">
         <a href="/cards/{{card['id']}}">
-            <img class="mb-4 pokemon-card-search-image image-fluid" src="{{ card['images']['small'] }}"
+            <img class="mb-4 pokemon-card-search-image image img-fluid" src="{{ card['images']['small'] }}"
                 alt="{{ card['name'] }} card image">
         </a>
     </div>

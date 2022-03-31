@@ -21,7 +21,7 @@
         <div class="col col-sm-11 col-md-11 col-lg-7 mt-3">
             <div class="row">
                 <!-- Card Name & Type -->
-                <div class="col-10 col-sm-9 col-md-9">
+                <div class="col-12 col-sm-9 col-md-9">
                     <h2>{{card['data']['name']}}</h2>
                     {% if card['data']['subtypes'] %}
                     <p>{{card['data']['supertype']}} - {{card['data']['subtypes'][0]}}</p>
@@ -29,7 +29,7 @@
                 </div>
                 <!-- Health Points 'HP' -->
                 {% if card['data']['hp'] %}
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                <div class="col-4 col-sm-3 col-md-3 col-lg-3 mt-3">
                     <p class="fw-bold">HP {{card['data']['hp']}}
                         {% if card['data']['types'] %}
                         {% for type in card['data']['types'] %}
@@ -66,22 +66,22 @@
 
                     <small class="mb-2">Updated {{card['data']['tcgplayer']['updatedAt']}}</small>
 
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 mt-2">
                         <small class="fw-bold">Market Price</small>
                         <p id="market-price">${{card['data']['tcgplayer']['prices']['holofoil']['market']}}</p>
                     </div>
                     
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 mt-2">
                         <small class="fw-bold">Low</small>
                         <p id="low-price">${{card['data']['tcgplayer']['prices']['holofoil']['low']}}</p>
                     </div>
 
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 mt-2">
                         <small class="fw-bold">Mid</small>
                         <p id="mid-price">${{card['data']['tcgplayer']['prices']['holofoil']['mid']}}</p>
                     </div>
 
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-2 mt-2">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 mt-2">
                         <small class="fw-bold">High</small>
                         <p id="high-price">${{card['data']['tcgplayer']['prices']['holofoil']['high']}}</p>
                     </div>

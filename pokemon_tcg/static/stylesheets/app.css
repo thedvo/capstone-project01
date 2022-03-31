@@ -13,6 +13,8 @@ body {
 #footer {
 	margin-top: auto;
 	height: 150px;
+	background-color: rgb(16, 19, 36);
+	padding-top: 15px;
 }
 /* *********** Navigation Bar ***************/
 
