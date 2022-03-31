@@ -47,10 +47,7 @@
             class="navbar-toggler" 
             type="button" 
             data-bs-toggle="collapse" 
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation">
+            data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
     
@@ -58,12 +55,11 @@
             <ul class="navbar-nav me-auto col-9 mx-auto mt-1 mb-1">
                 <li class="nav-item">
                     {% if isIndex != True %}
-                    <form class="navbar-form align-items-end" action="/cards/">
+                    <form class="navbar-form align-items-end" action="/cards">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" aria-label="Card Search"
-                                aria-describedby="button-addon2" name="pokemon-search" autocomplete="off">
-                            <button class="btn btn-secondary" type="button" id="button-addon2"><span
-                                    class="fa fa-search"></span>
+                            <input type="text" class="form-control" placeholder="Search" name="pokemon-search" autocomplete="off">
+                            <button class="btn btn-secondary" type="button">
+                                <span class="fa fa-search"></span>
                             </button>
                         </div>
                     </form>

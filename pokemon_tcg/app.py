@@ -56,48 +56,59 @@ def request_individual_card_details(pokemon_id):
 ############################################################################################
 # POKEMON TCG API ROUTES - CARDS
 
-@app.route('/cards/')
+@app.route('/cards')
 def get_pokemon_cards():
     """Handle form submission; return form; show cards related to search query"""
 
-    pokemon = request.args.get('pokemon-search')
+    try:
+        pokemon = request.args.get('pokemon-search') # gets search form input
 
-    if not str.isalpha(pokemon):
-        flash("Invalid characters in search. Please try something else.", "danger")
+        if not str.isalpha(pokemon): # checks each character in the input to see if it is a valid characher in alphabet 
+            flash("Invalid characters in search. Please try something else.", "danger")
+            return redirect("/")
+
+        card = request_cards(pokemon) # if search is valid, it will run the function to make the API request defined above
+
+        return render_template('card/cards.html', cards = card, pokemon = pokemon)
+    
+    except:
+        flash("Invalid search. Can not search nothing.", "danger")
         return redirect("/")
 
-    card = request_cards(pokemon)
-
-    return render_template('card/cards.html', cards = card, pokemon = pokemon)
 
 
 @app.route('/cards/<id>')
 def get_card_details(id):
     """Display details for an individual card"""
 
-    data = request_individual_card_details(id)
-  
-    # card data will be added to database when user clicks into an individual card
-    card_id = data['data']['id']
-    card_name = data['data']['name']
-
-    # checks if the current card has already been added to the database
-    check_card = Card.query.get(card_id)
+    try:
+        data = request_individual_card_details(id)
     
-    # If it has not been added, add it. 
-    if not check_card:
-        add_card = Card(id = card_id, name=card_name)
-        
-        db.session.add(add_card)
-        db.session.commit() 
+        # card data will be added to database when user clicks into an individual card
+        card_id = data['data']['id']
+        card_name = data['data']['name']
 
-    # if the user is logged in, they should be able to add/remove favorites. 
-    if g.user:
-        favorite_cards = [favorite.id for favorite in g.user.favorites]
-        return render_template('card/card_detail.html', card = data, favorites = favorite_cards)
+        # checks if the current card has already been added to the database
+        check_card = Card.query.get(card_id)
         
-   
-    return render_template('card/card_detail.html', card = data)
+        # If it has not been added, add it. 
+        if not check_card:
+            add_card = Card(id = card_id, name=card_name)
+            
+            db.session.add(add_card)
+            db.session.commit() 
+
+        # if the user is logged in, they should be able to add/remove favorites. 
+        if g.user:
+            favorite_cards = [favorite.id for favorite in g.user.favorites]
+            return render_template('card/card_detail.html', card = data, favorites = favorite_cards)
+            
+    
+        return render_template('card/card_detail.html', card = data)
+    
+    except:
+        flash("Invalid search. Please try something else", "danger")
+        return redirect('/')
 
 
 ############################################################################################
@@ -303,7 +314,7 @@ def add_favorite(card_id):
     if not g.user:
         flash('Please login to favorite a card.', 'danger')
         return redirect('/')
-
+    
     # query the card to see if it is in the 'favorites' table (meaning it has been favorited)
     favorited_card = Card.query.get_or_404(card_id)
     # get the user's favorites
@@ -324,6 +335,12 @@ def add_favorite(card_id):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error_handlers/404.html'), 404
+
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template('error_handlers/405.html'), 405
+
 
 ############################################################################################
 # Fix for error ---> sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
