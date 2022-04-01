@@ -200,7 +200,7 @@ def signup():
             return render_template('user/signup.html', form=form)
 
         do_login(user)
-
+        flash("Welcome! Profile successfully created.", 'success')
         return redirect("/")
 
     else:
@@ -227,7 +227,7 @@ def login():
             return redirect("/")
 
         flash("Invalid credentials.", 'danger')
-
+    
     return render_template('user/login.html', form=form)
 
 
