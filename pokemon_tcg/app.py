@@ -68,12 +68,12 @@ def get_pokemon_cards():
             flash("Invalid characters in search. Please try something else.", "danger")
             return redirect("/")
 
-        card = request_cards(pokemon) # if search is valid, it will run the function to make the API request defined above
+        card = request_cards(pokemon) # if search is valid, it will run the function defined above to make the API request
 
         return render_template('card/cards.html', cards = card, pokemon = pokemon)
     
     except:
-        flash("Invalid search. Can not search nothing.", "danger")
+        flash("Invalid search. Can not search nothing.", "danger") 
         return redirect("/")
 
 
@@ -111,6 +111,31 @@ def get_card_details(id):
         flash("Invalid search. Please try something else", "danger")
         return redirect('/')
 
+############################################################################################
+# HOMEPAGE ROUTES
+
+@app.route('/')
+def homepage():
+    """Show homepage:
+
+    - anonymous users: show sign up landing page
+    - logged in: show main search page
+    """
+
+    url = f'{API_BASE_URL}/?q=name:m' # query cards with 'm' in their name to display on homepage
+    response = requests.get(url)
+    data = response.json()
+
+    # data for specific cards which will be displayed on homepage
+    one = data['data'][0]
+    two = data['data'][1]
+    three = data['data'][4]
+    four = data['data'][5]
+    five = data['data'][9]
+
+    cards = {"card1": one}, {"card2": two}, {"card3": three}, {"card4": four}, {"card5": five}
+
+    return render_template('home.html', cards=cards, isIndex=True)
 
 ############################################################################################
 # USER SESSION 
@@ -139,32 +164,6 @@ def do_logout():
 
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-
-############################################################################################
-# HOMEPAGE ROUTES
-
-@app.route('/')
-def homepage():
-    """Show homepage:
-
-    - anonymous users: show sign up landing page
-    - logged in: show main search page
-    """
-
-    url = f'{API_BASE_URL}/?q=name:m' # query cards with 'm' in their name to display on homepage
-    response = requests.get(url)
-    data = response.json()
-
-    # data for specific cards which will be displayed on homepage
-    one = data['data'][0]
-    two = data['data'][1]
-    three = data['data'][4]
-    four = data['data'][5]
-    five = data['data'][9]
-
-    cards = {"card1": one}, {"card2": two}, {"card3": three}, {"card4": four}, {"card5": five}
-
-    return render_template('home.html', cards=cards, isIndex=True)
     
 ############################################################################################
 # SIGNUP/LOGIN/LOGOUT ROUTES
@@ -310,7 +309,7 @@ def delete_user():
 # FAVORITE ROUTES 
 
 @app.route('/cards/<card_id>/favorite', methods=['POST'])
-def add_favorite(card_id):
+def favorite_card(card_id):
     """Adds/Removes like from a card"""
 
     if not g.user:

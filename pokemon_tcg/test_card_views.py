@@ -64,7 +64,7 @@ class CardViewTestCase(TestCase):
 # #######################################################################
 # # SHOW AN INDIVIDUAL CARD'S DETAILS
     
-    def test_show_message(self):
+    def test_show_card(self):
         """Show the details for a valid individual card"""
 
         with self.client as client:
@@ -75,7 +75,7 @@ class CardViewTestCase(TestCase):
             self.assertIn("Flip a coin until you get tails. This attack does 30 damage for each heads.", str(res.data))
 
 
-    def test_show_invalid_message(self):
+    def test_show_invalid_card(self):
         """Try to route to a card that doesn't exist in database"""
         with self.client as client:
             
