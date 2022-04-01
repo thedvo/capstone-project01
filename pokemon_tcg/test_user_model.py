@@ -7,7 +7,7 @@ import os
 from unittest import TestCase
 from sqlalchemy import exc
 
-from models import db, User, Card, Favorite
+from models import db, User
 
 # testing database
 # set this before importing the app
@@ -30,8 +30,6 @@ class UserModelTestCase(TestCase):
         """Create test client, add sample data."""
 
         User.query.delete()
-        Card.query.delete()
-        Favorite.query.delete()
 
         user1 = User.signup(
                 "testuser", 

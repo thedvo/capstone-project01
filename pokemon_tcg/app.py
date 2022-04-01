@@ -329,7 +329,8 @@ def add_favorite(card_id):
     
     db.session.commit()
 
-    return redirect(request.referrer)
+    # return redirect(request.referrer)
+    return redirect('/')
 
 ############################################################################################
 # ERROR HANDLERS
