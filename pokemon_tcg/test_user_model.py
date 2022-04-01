@@ -37,23 +37,13 @@ class UserModelTestCase(TestCase):
                 "test@test.com")
         user1.id = 10
 
-        user2 = User.signup(
-                "testuser2", 
-                "password",
-                "test2@test.com")
-        user2.id = 20
-
         db.session.commit()
 
         user1 = User.query.get(user1.id)
-        user2 = User.query.get(user2.id)
 
         self.user1  = user1
         self.user1_id = user1.id
-
-        self.user2 = user2
-        self.user2_id = user2.id
-
+        
         self.client = app.test_client()
 
     def tearDown(self):
@@ -152,4 +142,5 @@ class UserModelTestCase(TestCase):
         """Failure given invalid password"""
         
         self.assertFalse(User.authenticate(self.user1.username, "wrongpassword"))
+
 

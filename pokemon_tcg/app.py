@@ -329,8 +329,8 @@ def add_favorite(card_id):
     
     db.session.commit()
 
-    # return redirect(request.referrer)
-    return redirect('/')
+    return redirect(request.referrer)
+    # return redirect('/') ---> this redirect is used for unit testing
 
 ############################################################################################
 # ERROR HANDLERS
