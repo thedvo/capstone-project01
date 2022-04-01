@@ -23,11 +23,12 @@ toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
+############################################################################################
+
+API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
 
 ############################################################################################
-API_BASE_URL = 'https://api.pokemontcg.io/v2/cards'
-############################################################################################
-# POKEMON TCG API REQUEST METHODS - CARDS
+# POKEMON TCG API REQUEST FUNCTIONS - GET CARDS AND CARD DETAILS
 
 def request_cards(pokemon):
     """Return the dictionary containing the Pokemon card info"""
@@ -54,7 +55,7 @@ def request_individual_card_details(pokemon_id):
     return {"data": data}
 
 ############################################################################################
-# POKEMON TCG API ROUTES - CARDS
+# POKEMON TCG API REQUEST ROUTES - CARDS
 
 @app.route('/cards')
 def get_pokemon_cards():
@@ -150,10 +151,11 @@ def homepage():
     - logged in: show main search page
     """
 
-    url = f'{API_BASE_URL}/?q=name:m'
+    url = f'{API_BASE_URL}/?q=name:m' # query cards with 'm' in their name to display on homepage
     response = requests.get(url)
     data = response.json()
 
+    # data for specific cards which will be displayed on homepage
     one = data['data'][0]
     two = data['data'][1]
     three = data['data'][4]
@@ -336,11 +338,9 @@ def add_favorite(card_id):
 def page_not_found(e):
     return render_template('error_handlers/404.html'), 404
 
-
 @app.errorhandler(405)
 def method_not_allowed(e):
     return render_template('error_handlers/405.html'), 405
-
 
 ############################################################################################
 # Fix for error ---> sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)

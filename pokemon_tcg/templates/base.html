@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto col-9 mx-auto mt-1 mb-1">
                 <li class="nav-item">
-                    {% if isIndex != True %}
+                    {% if isIndex != True %} <!-- this conditional is used to show/hide the navbar search bar depending on current route -->
                     <form class="navbar-form align-items-end" action="/cards">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="pokemon-search" autocomplete="off">
@@ -92,7 +92,7 @@
         {% endfor %}
 
         {% block content %}
-        <!-- PAGE CONTENT GOES HERE -->
+        <!-- MAIN PAGE CONTENT GOES HERE -->
         {% endblock %}
     </div>
 </body>
